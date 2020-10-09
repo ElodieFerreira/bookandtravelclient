@@ -6,6 +6,9 @@ import { BannerComponent } from './components/banner/banner.component';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import { CardComponent } from './components/card/card.component';
+import {FormsModule} from '@angular/forms';
+import {NgSelectModule} from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +20,8 @@ import { CardComponent } from './components/card/card.component';
     BrowserModule,
     CommonModule,
     HttpClientModule,
+    FormsModule,
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
