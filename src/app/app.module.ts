@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { BannerComponent } from './components/banner/banner.component';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BannerComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
