@@ -1,32 +1,32 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="display-flex-row">
 <div class="block-menu display-flex-column">
-  <ng-select [items]="cities"
+  <ng-select formControlName="cities" [items]="cities"
              bindLabel="name"
-             placeholder="Select city"
+             placeholder="Sélectionnez une ville"
              [multiple]="true"
              >
   </ng-select>
   <div class="display-flex-row">
     <label>Surface (m2)</label>
     <p class="fill-space"></p>
-    <input type="number" placeholder="Min">
+    <input formControlName="minSurface" type="number" placeholder="Min">
     <p class="fill-space"></p>
-    <input type="number" placeholder="Max">
+    <input formControlName="maxSurface" type="number" placeholder="Max">
   </div>
 </div>
 <div class="block-menu display-flex-column">
-  <ng-select [items]="cities"
-             bindLabel="name"
-             placeholder="Choisir"
+  <ng-select formControlName="options" [items]="(option$|async)"
+             bindLabel="Libelle"
+             placeholder="Sélectionnez des options"
              [multiple]="true"
   >
   </ng-select>
   <div class="display-flex-row">
     <label>Surface (m2)</label>
     <p class="fill-space"></p>
-    <input type="number" placeholder="Min">
+    <input formControlName="minPrice" type="number" placeholder="Min">
     <p class="fill-space"></p>
-    <input type="number" placeholder="Max">
+    <input formControlName="maxPrice" type="number" placeholder="Max">
   </div>
 </div>
 <div>

@@ -11,14 +11,14 @@ export const routes: Routes = [
   {
     path: '',
     component: PrincipalBoardComponent,
-    // children: [
-    //   {
-    //     path: 'research',
-    //     component: PrincipalBoardComponent
-    //   }
-    // ]
+    children: [
+      {
+        path: '',
+        component: PrincipalBoardComponent
+      }
+    ]
   },
-]
+];
 
 @NgModule({
   imports: [

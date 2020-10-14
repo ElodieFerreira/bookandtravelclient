@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BannerStoreService} from '../../../store/banner-store/banner-store.service';
+import {Observable} from 'rxjs';
+import {Option} from '../../../services/user-api.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-banner-research',
@@ -15,24 +19,26 @@ export class BannerResearchComponent implements OnInit {
     {id: 4, name: 'Pabradė'},
     {id: 5, name: 'Klaipėda'}
   ];
-
-  constructor(private formBuilder: FormBuilder) {
+  option$: Observable<Option>;
+  constructor(private formBuilder: FormBuilder, private bannerStore: BannerStoreService) {
     this.form = this.formBuilder.group({
-      cities: ['', Validators.required],
+      cities: [null, Validators.required],
       options: [''],
       minSurface: [''],
       maxSurface: [''],
       minPrice: [''],
       maxPrice: [''],
     });
+    this.option$ = this.bannerStore.options.pipe(map(option => option));
+
   }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    console.log("finish");
-
+    console.log(this.form.controls.cities.value);
+    this.bannerStore.launchRequest(this.form);
   }
 
 }
