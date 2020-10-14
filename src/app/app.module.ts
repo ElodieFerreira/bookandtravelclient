@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BannerResearchComponent } from './components/banner/banner-research/banner-research.component';
 import {AppRoutingModule} from './app-routing-module.module';
 import {AotCompiler} from '@angular/compiler';
+import { UserBoardComponent } from './components/principal-board/user-board/user-board.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {AotCompiler} from '@angular/compiler';
     PrincipalBoardComponent,
     FooterComponent,
     BannerResearchComponent,
+    UserBoardComponent,
 
   ],
   imports: [
