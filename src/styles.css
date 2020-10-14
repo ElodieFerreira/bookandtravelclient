@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+.display-flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.display-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.fill-space {
+  flex-grow: 1;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 19pt;
+  color: transparent;
+}
+.button-menu {
+  opacity: 0.2;
+  padding: 6px 8px;
+  border-radius: 3px;
+  font-weight: bold;
+  border: none;
+  margin: 0px 12px 12px 12px;
+  border-radius:10px;
+  color: transparent;
+}
+.button-menu:hover {
+  opacity: 0.9;
+  color: black;
+}
+.button-menu:active {
+  position:relative;
+  top:1px;
+}

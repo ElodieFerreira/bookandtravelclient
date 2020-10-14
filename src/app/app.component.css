@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.banner {
+  background-color: brown;
+  background-image: url(../assets/image/thumb-1920-1048376.jpg);
+}
+
+.board {
+  margin-bottom: auto;
+  background-color: beige;
+  flex-grow: 1;
+}
+
+.footer {
+  background-color: aqua;
+  margin-top: auto;
+}

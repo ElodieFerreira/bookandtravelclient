@@ -6,8 +6,13 @@ import { BannerComponent } from './components/banner/banner.component';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import { CardComponent } from './components/card/card.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { PrincipalBoardComponent } from './components/principal-board/principal-board.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { BannerResearchComponent } from './components/banner/banner-research/banner-research.component';
+import {AppRoutingModule} from './app-routing-module.module';
+import {AotCompiler} from '@angular/compiler';
 
 
 @NgModule({
@@ -15,6 +20,10 @@ import {NgSelectModule} from '@ng-select/ng-select';
     AppComponent,
     BannerComponent,
     CardComponent,
+    PrincipalBoardComponent,
+    FooterComponent,
+    BannerResearchComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -22,6 +31,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     HttpClientModule,
     FormsModule,
     NgSelectModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
