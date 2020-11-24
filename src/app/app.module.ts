@@ -14,6 +14,10 @@ import { BannerResearchComponent } from './components/banner/banner-research/ban
 import {AppRoutingModule} from './app-routing-module.module';
 import {AotCompiler} from '@angular/compiler';
 import { UserBoardComponent } from './components/principal-board/user-board/user-board.component';
+import {SearchComponent} from './components/search/search.component';
+import {IconsModule, MDBBootstrapModule, NavbarModule} from 'angular-bootstrap-md';
+import {UserInscriptionComponent} from './components/user-inscription/user-inscription.component';
+import {LoginComponent} from './components/login/login.component';
 
 
 @NgModule({
@@ -25,16 +29,21 @@ import { UserBoardComponent } from './components/principal-board/user-board/user
     FooterComponent,
     BannerResearchComponent,
     UserBoardComponent,
-
+    SearchComponent,
+    UserInscriptionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    MDBBootstrapModule.forRoot(),
     HttpClientModule,
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NavbarModule,
+    IconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

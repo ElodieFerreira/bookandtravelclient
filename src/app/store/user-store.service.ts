@@ -15,7 +15,7 @@ export class UserStoreService {
   constructor(public userApi: UserApiService) {
   }
 
-  public getUser() {
+  public getUser(): void {
     this.userApi.getUserInformationById().then(option => this.option.next(option));
   }
 }

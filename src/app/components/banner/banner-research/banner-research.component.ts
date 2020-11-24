@@ -22,8 +22,8 @@ export class BannerResearchComponent implements OnInit {
   option$: Observable<Option>;
   constructor(private formBuilder: FormBuilder, private bannerStore: BannerStoreService) {
     this.form = this.formBuilder.group({
-      cities: [null, Validators.required],
-      options: [''],
+      cities: [[], Validators.required],
+      options: [[]],
       minSurface: [''],
       maxSurface: [''],
       minPrice: [''],
@@ -37,7 +37,8 @@ export class BannerResearchComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form.controls.cities.value);
+    console.log('1554');
+    console.log(this.form.controls.maxSurface.value);
     this.bannerStore.launchRequest(this.form);
   }
 
