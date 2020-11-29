@@ -1,4 +1,5 @@
 <div class="card">
+  <div>{{(error$|async)}}</div>
 <h2>Login</h2>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-group">

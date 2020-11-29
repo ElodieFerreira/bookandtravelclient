@@ -5,7 +5,8 @@ import {AlertService} from '../../services/alert/alert.service';
 import {first} from 'rxjs/operators';
 import {UserApiService} from '../../services/user-api.service';
 import {AccountStore} from '../../store/account/account-store.service';
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
 @Component({
@@ -20,12 +21,13 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   subscription: Subscription;
+  error$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AccountStore,
+    public authenticationService: AccountStore,
     private alertService: AlertService) {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.subscription = authenticationService.isLogin$.subscribe(isLogin => {
@@ -67,6 +69,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/');
         },
         error => {
+          this.error$.next(error.error.message);
           this.alertService.error(error);
           this.loading = false;
         });

@@ -1,6 +1,7 @@
 export interface User {
   id: string;
   token: string;
+  error: string;
 }
 
 export interface UserInformation {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {User, UserInformation} from '../../models/User';
@@ -16,6 +16,8 @@ export class AccountStore {
   private isLogin: BehaviorSubject<boolean>;
   public isLogin$: Observable<boolean>;
   private subscription: Subscription;
+  public errorMessage: BehaviorSubject<HttpErrorResponse>;
+  public errorMessage$: Observable<HttpErrorResponse>;
 
   constructor(
     private router: Router,
@@ -43,6 +45,13 @@ export class AccountStore {
       this.isLogin = new BehaviorSubject<boolean>(false);
       this.isLogin$ = this.isLogin.asObservable();
     }
+    this.errorMessage = new BehaviorSubject<HttpErrorResponse>(undefined);
+    this.errorMessage$ = this.errorMessage.asObservable();
+    this.user$.subscribe(userInfo => {
+      if(userInfo.token) {
+        this.isLogin.next(true);
+      }
+    });
   }
 
   public get userValue(): User {
@@ -50,11 +59,12 @@ export class AccountStore {
   }
 
   login(username, password): Observable<User>  {
-    this.isLogin.next(true);
     return this.userApi.login(username, password)
       .pipe(map(user => {
+        if (user) {
+          return this.successLogin(user);
+        }
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        return this.successLogin(user);
       }));
   }
 
