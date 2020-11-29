@@ -4,6 +4,7 @@ export const Routes = {
     search: base + 'bien/research/',
   },
   user: {
+    base: 'user/',
     register: base + 'user/',
     login: base + 'user/login/',
   }

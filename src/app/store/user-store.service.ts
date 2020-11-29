@@ -16,6 +16,6 @@ export class UserStoreService {
   }
 
   public getUser(): void {
-    this.userApi.getUserInformationById().then(option => this.option.next(option));
+    //this.userApi.getUserInformationById().then(option => this.option.next(option));
   }
 }

@@ -4,7 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../services/alert/alert.service';
 import {first} from 'rxjs/operators';
 import {UserApiService} from '../../services/user-api.service';
-import {AccountService} from '../../services/account/account.service';
+import {AccountStore} from '../../store/account/account-store.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -18,13 +19,21 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AccountService,
-    private alertService: AlertService) {}
+    private authenticationService: AccountStore,
+    private alertService: AlertService) {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.subscription = authenticationService.isLogin$.subscribe(isLogin => {
+      if (isLogin) {
+        this.router.navigate([this.returnUrl]);
+      }
+    } );
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -36,7 +45,6 @@ export class LoginComponent implements OnInit {
     // this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -52,10 +60,11 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService.login(this.f.mail.value, this.f.password.value)
-      .pipe(first())
+      .pipe()
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
+          console.log('ola');
+          this.router.navigateByUrl('/');
         },
         error => {
           this.alertService.error(error);

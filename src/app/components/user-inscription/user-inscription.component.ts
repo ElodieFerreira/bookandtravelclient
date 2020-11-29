@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import {AccountService} from '../../services/account/account.service';
+import {AccountStore} from '../../store/account/account-store.service';
 import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class UserInscriptionComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService,
+    private accountService: AccountStore,
     private alertService: AlertService
   ) {
     // redirect to home if already logged in

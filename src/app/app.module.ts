@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { BannerComponent } from './components/banner/banner.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -12,12 +11,14 @@ import { PrincipalBoardComponent } from './components/principal-board/principal-
 import { FooterComponent } from './components/footer/footer.component';
 import { BannerResearchComponent } from './components/banner/banner-research/banner-research.component';
 import {AppRoutingModule} from './app-routing-module.module';
-import {AotCompiler} from '@angular/compiler';
 import { UserBoardComponent } from './components/principal-board/user-board/user-board.component';
 import {SearchComponent} from './components/search/search.component';
 import {IconsModule, MDBBootstrapModule, NavbarModule} from 'angular-bootstrap-md';
 import {UserInscriptionComponent} from './components/user-inscription/user-inscription.component';
 import {LoginComponent} from './components/login/login.component';
+import {AccountStore} from './store/account/account-store.service';
+import {UserApiService} from './services/user-api.service';
+import {UserCardComponent} from './components/user-card/user-card.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {LoginComponent} from './components/login/login.component';
     UserBoardComponent,
     SearchComponent,
     UserInscriptionComponent,
-    LoginComponent
+    LoginComponent,
+    UserCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +45,12 @@ import {LoginComponent} from './components/login/login.component';
     ReactiveFormsModule,
     AppRoutingModule,
     NavbarModule,
-    IconsModule
+    IconsModule,
   ],
-  providers: [],
+  providers: [
+    AccountStore,
+    UserApiService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

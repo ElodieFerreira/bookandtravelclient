@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User} from '../models/User';
+import {User, UserInformation} from '../models/User';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
@@ -19,11 +19,11 @@ export class UserApiService {
   }
 
 
-  public getUserInformationById(): Promise<Option> {
-    return this.http.get<Option>('http://localhost:8080/option/01').toPromise();
+  public getUserInformationById(userId: string): Observable<UserInformation> {
+    return this.http.get<UserInformation>(Routes.user.base + userId);
   }
 
-  register(user: User): Observable<User>  {
+  register(user: UserInformation): Observable<User>  {
     return this.http.post<User>(Routes.user.register, user);
   }
 

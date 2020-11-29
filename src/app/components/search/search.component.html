@@ -3,8 +3,10 @@
     <li><a routerLink="/parametre">Parametre</a></li>
     <li><a href="#">Mon compte</a>
       <ul class="dropdown">
-        <li><a routerLink="/connexion">Connexion</a></li>
-        <li><a routerLink="/inscription">Inscription</a></li>
+        <li *ngIf="!(isLogin$|async)"><a routerLink="/connexion">Connexion</a></li>
+        <li *ngIf="(isLogin$|async)"><a routerLink="/connexion">Mon compte</a></li>
+        <li *ngIf="!(isLogin$|async)"><a routerLink="/inscription">Inscription</a></li>
+        <li *ngIf="(isLogin$|async)"><a (click)="logout()">Déconnexion</a></li>
       </ul>
     </li>
     <li><a href="#">Trois</a></li>

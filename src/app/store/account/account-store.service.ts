@@ -1,0 +1,116 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import { map } from 'rxjs/operators';
+import {User, UserInformation} from '../../models/User';
+import {UserApiService} from '../../services/user-api.service';
+
+
+@Injectable({ providedIn: 'root' })
+export class AccountStore {
+  private userSubject: BehaviorSubject<User>;
+  public user$: Observable<User>;
+  public userInformation: BehaviorSubject<UserInformation>;
+  public userInformation$: Observable<UserInformation>;
+  private isLogin: BehaviorSubject<boolean>;
+  public isLogin$: Observable<boolean>;
+  private subscription: Subscription;
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    public userApi: UserApiService
+  ) {
+    window['test'] = this;
+    this.userInformation = new BehaviorSubject<UserInformation>(undefined);
+    if (localStorage.getItem('userAOS')) {
+      this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('userAOS')));
+      this.user$ = this.userSubject.asObservable();
+      this.user$.subscribe(user => {
+        if (user) {
+          this.subscription = this.userApi.getUserInformationById(user.id).subscribe(userInformation => {
+            console.log()
+            this.userInformation.next(userInformation);
+          });
+        }
+      })
+      console.log(localStorage.getItem('userAOS'));
+      this.isLogin = new BehaviorSubject<boolean>(true);
+      this.isLogin$ = this.isLogin.asObservable();
+      this.userInformation$ = this.userInformation.asObservable();
+    } else {
+      this.isLogin = new BehaviorSubject<boolean>(false);
+      this.isLogin$ = this.isLogin.asObservable();
+    }
+  }
+
+  public get userValue(): User {
+    return this.userSubject?.value;
+  }
+
+  login(username, password): Observable<User>  {
+    this.isLogin.next(true);
+    return this.userApi.login(username, password)
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        return this.successLogin(user);
+      }));
+  }
+
+  successLogin(user: User): User {
+    console.log('1');
+    this.router.navigateByUrl('/').catch(err => console.log(err));
+    localStorage.setItem('userAOS', JSON.stringify(user));
+    this.userSubject.next(user);
+    return user;
+  }
+
+  logout(): void  {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
+    this.isLogin.next(false);
+    this.router.navigateByUrl('/');
+  }
+
+  register(user: UserInformation): Observable<User>  {
+    return this.userApi.register(user);
+    // return this.http.post(Routes.user.register, user).toPromise();
+  }
+
+  getAll(): void   {
+/*    return this.http.get<User[]>(`${environment.apiUrl}/users`);*/
+  }
+
+  getById(id: string): void  {
+/*    return this.http.get<User>(`${environment.apiUrl}/users/${id}`);*/
+  }
+
+  update(id, params): void  {
+/*    return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+      .pipe(map(x => {
+        // update stored user if the logged in user updated their own record
+        if (id == this.userValue.id) {
+          // update local storage
+          const user = { ...this.userValue, ...params };
+          localStorage.setItem('user', JSON.stringify(user));
+
+          // publish updated user to subscribers
+          this.userSubject.next(user);
+        }
+        return x;
+      }));*/
+  }
+
+  delete(id: string): void {
+/*    return this.http.delete(`${environment.apiUrl}/users/${id}`)
+      .pipe(map(x => {
+        // auto logout if the logged in user deleted their own record
+        if (id == this.userValue.id) {
+          this.logout();
+        }
+        return x;
+      }));*/
+  }
+}
