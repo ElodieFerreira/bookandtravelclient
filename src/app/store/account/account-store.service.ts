@@ -46,6 +46,7 @@ export class AccountStore {
       this.user$ = this.userSubject.asObservable();
       this.isLogin = new BehaviorSubject<boolean>(false);
       this.isLogin$ = this.isLogin.asObservable();
+      this.userInformation$ = this.userInformation.asObservable();
     }
     this.errorMessage = new BehaviorSubject<HttpErrorResponse>(undefined);
     this.errorMessage$ = this.errorMessage.asObservable();
@@ -106,14 +107,7 @@ export class AccountStore {
     return userInformationObservable;
   }
 
-  delete(id: string): void {
-/*    return this.http.delete(`${environment.apiUrl}/users/${id}`)
-      .pipe(map(x => {
-        // auto logout if the logged in user deleted their own record
-        if (id == this.userValue.id) {
-          this.logout();
-        }
-        return x;
-      }));*/
+  delete(): Observable<boolean> {
+    return this.userApi.delete();
   }
 }

@@ -28,11 +28,11 @@ export class CardComponent {
   private _prix = '';
 
   @Input()
-  get icones(): string { return this._icones; }
-  set icones(icones: string) {
-    this._icones = (icones && icones.trim()) || '<no icones set>';
+  get options(): string[] { return this._options; }
+  set options(options: string[]) {
+    this._options = (options) || [];
   }
-  private _icones = '';
+  private _options = [];
 
   @Input()
   get libelle(): string { return this._libelle; }

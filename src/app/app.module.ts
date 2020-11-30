@@ -23,6 +23,7 @@ import {ResultsStoreService} from './store/results/results-store.service';
 import {PictureApiService} from './services/picture/picture-api.service';
 import {UserPageComponent} from './components/user-card/user-page.component';
 import {TokenInterceptorService} from './services/http-interceptor/token-interceptor.service';
+import {AjoutBienComponent} from './ajoutsBien/ajout-bien.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {TokenInterceptorService} from './services/http-interceptor/token-interce
     UserInscriptionComponent,
     LoginComponent,
     UserPageComponent,
-    ResultsComponent
+    ResultsComponent,
+    AjoutBienComponent
   ],
   imports: [
     BrowserModule,

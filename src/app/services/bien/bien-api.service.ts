@@ -28,4 +28,8 @@ export class BienApiService {
   public searchBien(filters: Filters): Observable<Bien[]> {
     return this.http.post<Bien[]>(Routes.bien.search, filters);
   }
+
+  public createBien(bien: Bien): Observable<any> {
+    return this.http.post<any>(Routes.bien.base , bien);
+  }
 }

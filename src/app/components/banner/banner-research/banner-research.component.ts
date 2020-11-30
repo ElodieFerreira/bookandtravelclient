@@ -15,11 +15,8 @@ import {ResultsStoreService} from '../../../store/results/results-store.service'
 export class BannerResearchComponent implements OnInit {
   form: FormGroup;
   cities = [
-    {id: 1, name: 'Vilnius'},
-    {id: 2, name: 'Kaunas'},
-    {id: 3, name: 'Pavilnys'},
-    {id: 4, name: 'Pabradė'},
-    {id: 5, name: 'Klaipėda'}
+    {id: 1, name: 'Evry'},
+    {id: 2, name: 'Paris'},
   ];
   option$: Observable<Option>;
   constructor(private formBuilder: FormBuilder, private bannerStore: BannerStoreService,

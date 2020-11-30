@@ -28,6 +28,10 @@
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Valider
         </button>
+        <button (click)="onDelete()" *ngIf="inEdition" [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Supprimer
+        </button>
         <a  *ngIf="!inEdition" (click)="inEdition=true" class="btn btn-link">Modifier</a>
       </div>
     </form>

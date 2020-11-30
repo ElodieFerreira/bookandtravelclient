@@ -1,0 +1,73 @@
+<div class="card">
+  <div>{{(error$|async)}}</div>
+  <h4 class="card-header">Ajout d'un appartement</h4>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="libelle">Libelle</label>
+        <input id="libelle" type="text" formControlName="libelle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.libelle?.errors }" />
+        <div *ngIf="submitted && f.libelle.errors" class="invalid-feedback">
+          <div *ngIf="f.libelle.errors.required">Le libelle est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input id="adresse" type="text" formControlName="adresse" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.adresse?.errors }" />
+        <div *ngIf="submitted && f.adresse.errors" class="invalid-feedback">
+          <div *ngIf="f.adresse.errors.required">Le adresse est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cp">Code postale</label>
+        <input id="cp" type="text" formControlName="cp" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cp?.errors }" />
+        <div *ngIf="submitted && f.cp.errors" class="invalid-feedback">
+          <div *ngIf="f.cp.errors.required">Le cp est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ville">Ville</label>
+        <input id="ville" type="text" formControlName="ville" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ville?.errors }" />
+        <div *ngIf="submitted && f.ville.errors" class="invalid-feedback">
+          <div *ngIf="f.ville.errors.required">La ville est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="prix">Prix</label>
+        <input id="prix" type="number" formControlName="prix" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prix?.errors }" />
+        <div *ngIf="submitted && f.prix.errors" class="invalid-feedback">
+          <div *ngIf="f.prix.errors.required">Le mot de passe est obligatoire</div>
+          <div *ngIf="f.prix.errors.min">Le prix doit être de 10€ minimum</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="superficie">Superficie</label>
+        <input id="superficie" type="number" formControlName="superficie" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.superficie?.errors }" />
+        <div *ngIf="submitted && f.superficie.errors" class="invalid-feedback">
+          <div *ngIf="f.superficie.errors.required">Le mot de passe est obligatoire</div>
+          <div *ngIf="f.superficie.errors.min">Le bien doit faire plus de 10m carré</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="url">Lien de votre photo</label>
+        <input id="url" type="url" formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url?.errors }" />
+        <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
+          <div *ngIf="f.url.errors.required">Le mot de passe est obligatoire</div>
+          <div *ngIf="f.url.errors.min">Le mot de passe doit contenir 6 caractère</div>
+        </div>
+      </div>
+      <ng-select formControlName="options" [items]="(option$|async)"
+                 bindLabel="Libelle"
+                 placeholder="Sélectionnez des options"
+                 [multiple]="true"
+      >
+      </ng-select>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Register
+        </button>
+        <a routerLink="../login" class="btn btn-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

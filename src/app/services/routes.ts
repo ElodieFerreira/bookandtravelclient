@@ -1,6 +1,7 @@
 const base = 'http://localhost:8080/';
 export const Routes = {
   bien: {
+    base: base + 'bien/',
     search: base + 'bien/research/',
   },
   user: {

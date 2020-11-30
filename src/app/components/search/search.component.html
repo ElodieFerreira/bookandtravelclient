@@ -1,15 +1,18 @@
 <nav>
   <ul>
-    <li>Book And Travel</li>
-    <li><a routerLink="/parametre">Parametre</a></li>
     <li><a href="#">Mon compte</a>
       <ul class="dropdown">
         <li *ngIf="!(isLogin$|async)"><a routerLink="/connexion">Connexion</a></li>
         <li *ngIf="(isLogin$|async)"><a routerLink="/user">Mon compte</a></li>
+        <li *ngIf="(isLogin$|async)"><a routerLink="/reservation">Mes réservations</a></li>
+        <li *ngIf="(isLogin$|async)"><a routerLink="/biens">Mes biens</a></li>
+        <li *ngIf="(isLogin$|async)"><a routerLink="/ajoutsBien">Ajouter un bien</a></li>
         <li *ngIf="!(isLogin$|async)"><a routerLink="/inscription">Inscription</a></li>
         <li *ngIf="(isLogin$|async)"><a (click)="logout()">Déconnexion</a></li>
       </ul>
     </li>
+    <li>Book And Travel</li>
+    <li><a routerLink="/parametre">Parametre</a></li>
     <li><a href="#">Trois</a></li>
   </ul>
 </nav>

@@ -36,18 +36,16 @@ export class UserApiService {
   }
 
   update(user: UserInformation): Observable<UserInformation> {
-    const header = this.prepareHeader();
     const userLocal: User = JSON.parse(localStorage.getItem('userAOS'));
     const id = userLocal.userId.toString();
     return this.http.put<UserInformation>(Routes.user.base + id, user);
   }
 
-  prepareHeader(): any {
-    const user: User = JSON.parse(localStorage.getItem('userAOS'));
-    console.log(user);
-    const header = new HttpHeaders({ 'Content-Type': 'application/json'})
-    header.set('Authorization', user.token);
-    return header;
+  delete(): Observable<boolean> {
+    const userLocal: User = JSON.parse(localStorage.getItem('userAOS'));
+    const id = userLocal.userId.toString();
+    return this.http.delete<boolean>(Routes.user.base + id);
   }
+
 
 }

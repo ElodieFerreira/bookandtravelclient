@@ -5,15 +5,17 @@
 }
 
 
-.banner {
-  background-image: url(../assets/image/thumb-1920-1048376.jpg);
+
+.board {
+  margin-bottom: auto;
+  background-color: beige;
+  flex-grow: 1;
+  height: 40%;
 }
 
-/*.board {*/
-/*  margin-bottom: auto;*/
-/*  background-color: beige;*/
-/*  flex-grow: 1;*/
-/*}*/
+.img-home {
+  height: 50%;
+}
 
 .footer {
   background-color: aqua;

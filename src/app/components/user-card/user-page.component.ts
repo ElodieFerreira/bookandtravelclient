@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AccountStore} from '../../store/account/account-store.service';
 import {AlertService} from '../../services/alert/alert.service';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-page',
@@ -71,4 +71,19 @@ export class UserPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
+  onDelete(): void {
+    this.alertService.clear();
+
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.accountService.delete().pipe(first()).subscribe(data => {
+      if(data) {
+        this.accountService.logout();
+      }
+    });
+  }
 }
