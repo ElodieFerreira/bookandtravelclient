@@ -5,7 +5,7 @@
   overflow-y: scroll;
 }
 .force-overflow {
-  max-height: 300px;
+  ma-height: 300px;
 }
 
 .scrollbar-primary::-webkit-scrollbar {

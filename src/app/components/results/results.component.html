@@ -1,12 +1,14 @@
 <div class="scrollbar scrollbar-primary board" *ngIf="(biens$|async)">
   <div class="force-overflow">
-<div *ngFor="let bien of (biens$|async); index as i; first as isFirst">
-  <div *ngIf="bien.pictureLink">
-  <app-card [libelle]="bien.Libelle"
-            [prix]="bien.Prix"
-            [ville]="bien.Ville"
-            [options]="null"
-            [url]="bien.pictureLink[0].Lien"></app-card>
-  </div>
+    <div *ngFor="let bien of (biens$|async); index as i; first as isFirst">
+      <button *ngIf="reservable" (click)="reserve(bien)">Réserver ce bien</button>
+      <div *ngIf="bien.pictureLink">
+        <app-card [libelle]="bien.Libelle"
+                  [prix]="bien.Prix"
+                  [ville]="bien.Ville"
+                  [options]="null"
+                  [url]="bien.pictureLink[0].Lien"></app-card>
+      </div>
+    </div>
   </div>
 </div>

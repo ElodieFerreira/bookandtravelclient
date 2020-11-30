@@ -3,6 +3,7 @@ export const Routes = {
   bien: {
     base: base + 'bien/',
     search: base + 'bien/research/',
+    allUser: base + 'bien/all/'
   },
   user: {
     base: base + 'user/',
@@ -11,5 +12,8 @@ export const Routes = {
   },
   picture: {
     base: base + 'photo/',
+  },
+  reservation: {
+    base: base + 'reservation/'
   }
 };

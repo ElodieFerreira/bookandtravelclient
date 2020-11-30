@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {FormGroup} from '@angular/forms';
 import {PictureApiService} from '../../services/picture/picture-api.service';
 import {Picture} from '../../models/photo';
+import {User} from '../../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +21,42 @@ export class ResultsStoreService {
     this.biens$ = this.biens.asObservable();
   }
 
-
-  // @ts-ignore
   launchRequest(form: FormGroup): void {
     const filters = this.createRequest(form);
     this.bienApi.searchBien(filters).pipe(map(house => {
       house.forEach(item =>
         this.pictureService.findById(item.ID).pipe(map(pictures => {return pictures;} )).subscribe(pictures => {
-          console.log(pictures);
-          item.pictureLink = pictures;
-      },
+            console.log(pictures);
+            item.pictureLink = pictures;
+          },
           error => {
-          item.pictureLink = [];
-          const picture: Picture = {
-            Bien_ID: '', ID: '', Lien: undefined
-          };
-          item.pictureLink.push(picture);
+            item.pictureLink = [];
+            const picture: Picture = {
+              Bien_ID: '', ID: '', Lien: undefined
+            };
+            item.pictureLink.push(picture);
+          }));
+      return house;
+    })).subscribe(biens => this.biens.next(biens),
+      error => {this.biens.next([]); });
+  }
+  // @ts-ignore
+
+  getAllForUser(): void {
+    const userLocal: User = JSON.parse(localStorage.getItem('userAOS'));
+    const id = userLocal.userId.toString();
+    this.bienApi.getAllForUser(id).pipe(map(house => {
+      house.forEach(item =>
+        this.pictureService.findById(item.ID).pipe(map(pictures => {return pictures;} )).subscribe(pictures => {
+            console.log(pictures);
+            item.pictureLink = pictures;
+          },
+          error => {
+            item.pictureLink = [];
+            const picture: Picture = {
+              Bien_ID: '', ID: '', Lien: undefined
+            };
+            item.pictureLink.push(picture);
           }));
       return house;
     })).subscribe(biens => this.biens.next(biens),
@@ -56,5 +77,14 @@ export class ResultsStoreService {
 
   public createAHome(value: any): Observable<any> {
     return this.bienApi.createBien(value);
+  }
+
+  public deleteBien(id: string): Observable<any> {
+    console.log('je vais supprimer le bien wesh');
+    return this.bienApi.deleteBien(id);
+  }
+
+  public deletePicture(id: string): Promise<any> {
+   return this.bienApi.deletePhoto(id).toPromise();
   }
 }

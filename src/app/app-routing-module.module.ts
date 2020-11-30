@@ -8,6 +8,7 @@ import {LoginComponent} from './components/login/login.component';
 import {ResultsComponent} from './components/results/results.component';
 import {UserPageComponent} from './components/user-card/user-page.component';
 import {AjoutBienComponent} from './ajoutsBien/ajout-bien.component';
+import {ResultsUserComponent} from './components/ResultsUser/results-user.component';
 
 
 
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: 'ajoutsBien',
     component: AjoutBienComponent,
+  },
+  {
+    path: 'biens',
+    component: ResultsUserComponent,
   },
   {
     path: 'user',

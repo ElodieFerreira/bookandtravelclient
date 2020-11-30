@@ -32,4 +32,16 @@ export class BienApiService {
   public createBien(bien: Bien): Observable<any> {
     return this.http.post<any>(Routes.bien.base , bien);
   }
+
+  public getAllForUser(userId: string): Observable<any> {
+    return this.http.get(Routes.bien.allUser + userId);
+  }
+
+  public deleteBien(id: string): Observable<any> {
+    return this.http.delete<any>(Routes.bien.base + id);
+  }
+
+  public deletePhoto(id: string): Observable<any> {
+    return this.http.delete<any>(Routes.picture.base + id);
+  }
 }

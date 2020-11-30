@@ -1,0 +1,13 @@
+<div class="scrollbar scrollbar-primary board" *ngIf="(biens$|async)">
+  <div class="force-overflow">
+<div *ngFor="let bien of (biens$|async); index as i; first as isFirst">
+  <div *ngIf="bien.pictureLink">
+    <button (click)="delete(bien.ID,bien.pictureLink[0].ID)">Supprimer ce bien</button>
+  <app-card [libelle]="bien.Libelle"
+            [prix]="bien.Prix"
+            [ville]="bien.Ville"
+            [options]="null"
+            [url]="bien.pictureLink[0].Lien"></app-card>
+  </div>
+  </div>
+</div>
