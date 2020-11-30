@@ -1,13 +1,14 @@
 export interface User {
-  id: string;
+  userId: string;
   token: string;
   error: string;
 }
 
 export interface UserInformation {
-  id: string;
-  nom: string;
-  prenom: string;
-  email: string;
-  telephone: number;
+  ID: string;
+  Nom: string;
+  Prenom: string;
+  Mail: string;
+  Telephone: number;
+  MDP: string;
 }

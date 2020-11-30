@@ -1,0 +1,35 @@
+<div class="card">
+  <h4 class="card-header">Profile</h4>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="prenom">First Name</label>
+        <input [readOnly]="!inEdition" id="prenom" type="text" formControlName="Prenom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Prenom?.errors }" />
+        <div *ngIf="submitted && f.Prenom.errors" class="invalid-feedback">
+          <div *ngIf="f.Prenom.errors.required">First Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nom">Last Name</label>
+        <input [readOnly]="!inEdition"  id="nom" type="text" formControlName="Nom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Nom?.errors }" />
+        <div *ngIf="submitted && f.Nom.errors" class="invalid-feedback">
+          <div *ngIf="f.Nom.errors.required">Last Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mail">mail</label>
+        <input [readOnly]="!inEdition" id="mail" type="text" formControlName="Mail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Mail?.errors }" />
+        <div *ngIf="submitted && f.Mail.errors" class="invalid-feedback">
+          <div *ngIf="f.Mail.errors.required">mail is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button (click)="onSubmit()" *ngIf="inEdition" [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Valider
+        </button>
+        <a  *ngIf="!inEdition" (click)="inEdition=true" class="btn btn-link">Modifier</a>
+      </div>
+    </form>
+  </div>
+</div>

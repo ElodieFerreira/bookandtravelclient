@@ -4,6 +4,8 @@ import {BannerStoreService} from '../../../store/banner-store/banner-store.servi
 import {Observable} from 'rxjs';
 import {Option} from '../../../services/user-api.service';
 import {map} from 'rxjs/operators';
+import {ResultsComponent} from '../../results/results.component';
+import {ResultsStoreService} from '../../../store/results/results-store.service';
 
 @Component({
   selector: 'app-banner-research',
@@ -20,7 +22,8 @@ export class BannerResearchComponent implements OnInit {
     {id: 5, name: 'Klaipėda'}
   ];
   option$: Observable<Option>;
-  constructor(private formBuilder: FormBuilder, private bannerStore: BannerStoreService) {
+  constructor(private formBuilder: FormBuilder, private bannerStore: BannerStoreService,
+              private resultsStore: ResultsStoreService) {
     this.form = this.formBuilder.group({
       cities: [[], Validators.required],
       options: [[]],
@@ -39,7 +42,7 @@ export class BannerResearchComponent implements OnInit {
   onSubmit(): void {
     console.log('1554');
     console.log(this.form.controls.maxSurface.value);
-    this.bannerStore.launchRequest(this.form);
+    this.resultsStore.launchRequest(this.form);
   }
 
 }

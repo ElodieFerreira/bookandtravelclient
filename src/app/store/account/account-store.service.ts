@@ -31,7 +31,7 @@ export class AccountStore {
       this.user$ = this.userSubject.asObservable();
       this.user$.subscribe(user => {
         if (user) {
-          this.subscription = this.userApi.getUserInformationById(user.id).subscribe(userInformation => {
+          this.subscription = this.userApi.getUserInformationById(user.userId).subscribe(userInformation => {
             console.log()
             this.userInformation.next(userInformation);
           });
@@ -42,14 +42,17 @@ export class AccountStore {
       this.isLogin$ = this.isLogin.asObservable();
       this.userInformation$ = this.userInformation.asObservable();
     } else {
+      this.userSubject = new BehaviorSubject<User>(undefined);
+      this.user$ = this.userSubject.asObservable();
       this.isLogin = new BehaviorSubject<boolean>(false);
       this.isLogin$ = this.isLogin.asObservable();
     }
     this.errorMessage = new BehaviorSubject<HttpErrorResponse>(undefined);
     this.errorMessage$ = this.errorMessage.asObservable();
     this.user$.subscribe(userInfo => {
-      if(userInfo.token) {
+      if(userInfo?.token) {
         this.isLogin.next(true);
+        this.userApi.getUserInformationById(userInfo.userId).subscribe(userInformation => this.userInformation.next(userInformation));
       }
     });
   }
@@ -78,7 +81,7 @@ export class AccountStore {
 
   logout(): void  {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
+    localStorage.removeItem('userAOS');
     this.userSubject.next(null);
     this.isLogin.next(false);
     this.router.navigateByUrl('/');
@@ -97,20 +100,10 @@ export class AccountStore {
 /*    return this.http.get<User>(`${environment.apiUrl}/users/${id}`);*/
   }
 
-  update(id, params): void  {
-/*    return this.http.put(`${environment.apiUrl}/users/${id}`, params)
-      .pipe(map(x => {
-        // update stored user if the logged in user updated their own record
-        if (id == this.userValue.id) {
-          // update local storage
-          const user = { ...this.userValue, ...params };
-          localStorage.setItem('user', JSON.stringify(user));
-
-          // publish updated user to subscribers
-          this.userSubject.next(user);
-        }
-        return x;
-      }));*/
+  update(user: UserInformation): Observable<UserInformation>  {
+    const userInformationObservable = this.userApi.update(user)
+      .pipe(map(userInfo =>  {this.userInformation.next(userInfo); return userInfo; }));
+    return userInformationObservable;
   }
 
   delete(id: string): void {

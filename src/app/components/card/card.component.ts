@@ -9,9 +9,9 @@ export class CardComponent {
   @Input()
   get url(): string { return this._url; }
   set url(url: string) {
-    this._url = (url && url.trim()) || '<no url set>';
+    this._url = (url && url.trim()) || false;
   }
-  private _url = '';
+  private _url;
 
   @Input()
   get ville(): string { return this._ville; }

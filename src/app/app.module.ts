@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BannerComponent } from './components/banner/banner.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import { CardComponent } from './components/card/card.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -18,7 +18,11 @@ import {UserInscriptionComponent} from './components/user-inscription/user-inscr
 import {LoginComponent} from './components/login/login.component';
 import {AccountStore} from './store/account/account-store.service';
 import {UserApiService} from './services/user-api.service';
-import {UserCardComponent} from './components/user-card/user-card.component';
+import {ResultsComponent} from './components/results/results.component';
+import {ResultsStoreService} from './store/results/results-store.service';
+import {PictureApiService} from './services/picture/picture-api.service';
+import {UserPageComponent} from './components/user-card/user-page.component';
+import {TokenInterceptorService} from './services/http-interceptor/token-interceptor.service';
 
 
 @NgModule({
@@ -33,7 +37,8 @@ import {UserCardComponent} from './components/user-card/user-card.component';
     SearchComponent,
     UserInscriptionComponent,
     LoginComponent,
-    UserCardComponent,
+    UserPageComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,13 @@ import {UserCardComponent} from './components/user-card/user-card.component';
   providers: [
     AccountStore,
     UserApiService,
+    ResultsStoreService,
+    PictureApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

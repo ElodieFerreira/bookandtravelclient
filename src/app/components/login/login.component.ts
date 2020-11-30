@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      mail: ['', Validators.required],
-      password: ['', Validators.required]
+      Mail: ['', Validators.required],
+      MDP: ['', Validators.required]
     });
 
     // reset login status
@@ -61,11 +61,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.mail.value, this.f.password.value)
+    this.authenticationService.login(this.f.Mail.value, this.f.MDP.value)
       .pipe()
       .subscribe(
         data => {
-          console.log('ola');
           this.router.navigateByUrl('/');
         },
         error => {

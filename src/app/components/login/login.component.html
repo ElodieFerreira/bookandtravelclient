@@ -4,16 +4,16 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="mail">Adresse email</label>
-    <input id="mail" type="text" formControlName="mail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mail.errors }" />
-    <div *ngIf="submitted && f.mail.errors" class="invalid-feedback">
-      <div *ngIf="f.mail.errors.required">mail is required</div>
+    <input id="mail" type="email" formControlName="Mail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Mail.errors }" ngModel [email]="true" />
+    <div *ngIf="submitted && f.Mail.errors" class="invalid-feedback">
+      <div *ngIf="f.Mail.errors.required">mail is required</div>
     </div>
   </div>
   <div class="form-group">
     <label for="password">Mot de passe</label>
-    <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-      <div *ngIf="f.password.errors.required">Password is required</div>
+    <input id="password" type="password" formControlName="MDP" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.MDP.errors }" />
+    <div *ngIf="submitted && f.MDP.errors" class="invalid-feedback">
+      <div *ngIf="f.MDP.errors.required">Password is required</div>
     </div>
   </div>
   <div class="form-group">

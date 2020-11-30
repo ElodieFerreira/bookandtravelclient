@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AccountStore} from '../../store/account/account-store.service';
 import {AlertService} from '../../services/alert/alert.service';
+import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-user-inscription',
-  templateUrl: './user-inscription.component.html',
-  styleUrls: ['./user-inscription.component.css']
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.css']
 })
-export class UserInscriptionComponent implements OnInit {
+export class UserPageComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   loading = false;
   submitted = false;
+  public inEdition = false;
+  private subscription = Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,9 +27,6 @@ export class UserInscriptionComponent implements OnInit {
     private alertService: AlertService
   ) {
     // redirect to home if already logged in
-    if (this.accountService.userValue) {
-      this.router.navigate(['/']);
-    }
   }
 
   ngOnInit(): void {
@@ -35,6 +35,15 @@ export class UserInscriptionComponent implements OnInit {
       Prenom: ['', Validators.required],
       Mail: ['', Validators.required],
       MDP: ['', [Validators.required, Validators.minLength(6)]]
+    });
+    // @ts-ignore
+    this.subscription = this.accountService.userInformation$.subscribe(userInformation => {
+      if (userInformation) {
+        this.form.controls.Nom.setValue(userInformation.Nom);
+        this.form.controls.Prenom.setValue(userInformation.Prenom);
+        this.form.controls.Mail.setValue(userInformation.Mail);
+        this.form.controls.MDP.setValue(userInformation.MDP);
+      }
     });
   }
 
@@ -53,17 +62,13 @@ export class UserInscriptionComponent implements OnInit {
     }
 
     this.loading = true;
-    this.accountService.register(this.form.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-          this.router.navigate(['/']);
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        });
+    this.accountService.update(this.form.value).pipe(first()).subscribe(data => {
+      this.loading = false;
+      this.inEdition = false;
+    });
+  }
+
+  ngOnDestroy(): void {
   }
 
 }

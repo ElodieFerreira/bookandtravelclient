@@ -4,8 +4,11 @@ export const Routes = {
     search: base + 'bien/research/',
   },
   user: {
-    base: 'user/',
+    base: base + 'user/',
     register: base + 'user/',
     login: base + 'user/login/',
+  },
+  picture: {
+    base: base + 'photo/',
   }
 };

@@ -5,6 +5,8 @@ import {PrincipalBoardComponent} from './components/principal-board/principal-bo
 import {UserBoardComponent} from './components/principal-board/user-board/user-board.component';
 import {UserInscriptionComponent} from './components/user-inscription/user-inscription.component';
 import {LoginComponent} from './components/login/login.component';
+import {ResultsComponent} from './components/results/results.component';
+import {UserPageComponent} from './components/user-card/user-page.component';
 
 
 
@@ -16,7 +18,7 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    component: UserBoardComponent,
+    component: UserPageComponent,
   },
   {
     path: 'inscription',
@@ -25,6 +27,10 @@ export const routes: Routes = [
   {
     path: 'connexion',
     component: LoginComponent,
+  },
+  {
+    path: 'results',
+    component: ResultsComponent,
   }
 ];
 

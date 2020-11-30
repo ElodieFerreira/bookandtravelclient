@@ -1,10 +1,11 @@
 <nav>
   <ul>
+    <li>Book And Travel</li>
     <li><a routerLink="/parametre">Parametre</a></li>
     <li><a href="#">Mon compte</a>
       <ul class="dropdown">
         <li *ngIf="!(isLogin$|async)"><a routerLink="/connexion">Connexion</a></li>
-        <li *ngIf="(isLogin$|async)"><a routerLink="/connexion">Mon compte</a></li>
+        <li *ngIf="(isLogin$|async)"><a routerLink="/user">Mon compte</a></li>
         <li *ngIf="!(isLogin$|async)"><a routerLink="/inscription">Inscription</a></li>
         <li *ngIf="(isLogin$|async)"><a (click)="logout()">Déconnexion</a></li>
       </ul>
